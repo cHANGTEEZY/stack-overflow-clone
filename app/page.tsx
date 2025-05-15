@@ -1,7 +1,9 @@
+import React from "react";
+
 const page = () => {
   return (
     <div>
-      <h1>Hello NextJS</h1>
+      <h1 className="h1-bold">Hello NextJS</h1>
     </div>
   );
 };
