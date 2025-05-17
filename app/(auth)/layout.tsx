@@ -1,5 +1,5 @@
 import SocialAuthForms from "@/components/forms/SocialAuthForms";
-import NavBar from "@/components/navigation/navbar";
+import MobileNavigation from "@/components/navigation/navbar/MobileNavigation";
 import Image from "next/image";
 import React from "react";
 
