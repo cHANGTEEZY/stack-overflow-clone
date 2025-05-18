@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
 import React from "react";
-import TagCards from "../cards/TagCards";
+import TagCard from "../cards/TagCards";
 
 const RightSideBar = () => {
   const hotQuestions = [
@@ -76,7 +76,13 @@ const RightSideBar = () => {
 
         <div className="mt-7 flex flex-col gap-4">
           {popularTags.map(({ _id, name, questions }) => (
-            <TagCards />
+            <TagCard
+              key={_id}
+              _id={_id}
+              name={name}
+              questions={questions}
+              showCount
+            />
           ))}
         </div>
       </div>
