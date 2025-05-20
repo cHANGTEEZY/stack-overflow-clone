@@ -134,8 +134,6 @@ const HomePage = async ({ searchParams }: SearchParams) => {
     return matchesQuery && matchesFilter;
   });
 
-  console.log("filtered", filteredQuestions);
-
   return (
     <>
       <section className="w-full flex flex-col-reverse justify-between sm:flex-row sm:items-center ">
@@ -166,5 +164,4 @@ const HomePage = async ({ searchParams }: SearchParams) => {
     </>
   );
 };
-
 export default HomePage;

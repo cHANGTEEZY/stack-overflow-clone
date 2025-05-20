@@ -23,7 +23,7 @@ const MobileNavigation = () => {
             width={36}
             height={36}
             alt="hambrger menu"
-            className="sm:hidden invert dark:invert"
+            className="sm:hidden invert dark:invert-0"
           />
         </SheetTrigger>
         <SheetContent
