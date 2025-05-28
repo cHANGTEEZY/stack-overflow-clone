@@ -7,7 +7,6 @@ import handleError from "@/lib/handlers/error";
 import { ValidationError } from "@/lib/http-error";
 import Link from "next/link";
 import React from "react";
-import { measureMemory } from "vm";
 
 const questions = [
   {
@@ -115,25 +114,11 @@ const filter = [
   },
 ];
 
-const test = async () => {
-  try {
-    throw new ValidationError({
-      title: ["required"],
-      tags: ['"Javascript is not a valid tag"'],
-    });
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
 
 const HomePage = async ({ searchParams }: SearchParams) => {
-  const message = await test();
-  console.log(message);
-
   const params = await searchParams;
   const query = params.query ?? "";
   const filter = params.filter ?? "";

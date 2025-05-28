@@ -5,7 +5,7 @@ export interface IUser {
   username: string;
   email: string;
   bio?: string;
-  image: string;
+  image?: string;
   location?: string;
   portfolio?: string;
   reputation?: number;
@@ -32,7 +32,6 @@ const userSchema = new Schema(
     },
     image: {
       type: String,
-      required: true,
     },
     location: {
       type: String,

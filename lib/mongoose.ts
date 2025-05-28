@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from "mongoose";
+import logger from "./logger";
 
 const MongoDB_URI = process.env.MONGODB_URI as String;
 
@@ -18,6 +19,7 @@ declare global {
 let cached = global.mongoose;
 
 if (!cached) {
+  logger.info("Using existing monggoose connection");
   cached = global.mongoose = { conn: null, promise: null };
 }
 
@@ -32,11 +34,11 @@ const dbConnect = async (): Promise<Mongoose> => {
         dbName: "Cluster0",
       })
       .then((result) => {
-        console.log("MongoDB Connected");
+        logger.info("Connected to mongoose");
         return result;
       })
       .catch((error) => {
-        console.error("Error connecting to MongoDBB", error);
+        logger.error("Error connecting to mongoose", error);
         throw error;
       });
   }
