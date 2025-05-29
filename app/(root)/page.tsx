@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import QuestionCards from "@/components/cards/QuestionCards";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
@@ -114,21 +115,13 @@ const filter = [
   },
 ];
 
-const test = async () => {
-  try {
-    return await api.users.getAll();
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
 
 const HomePage = async ({ searchParams }: SearchParams) => {
-  const users = await test();
-  console.log(users);
+  const session = await auth();
+  console.log(session);
 
   const params = await searchParams;
   const query = params.query ?? "";
