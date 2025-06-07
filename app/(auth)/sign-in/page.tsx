@@ -14,7 +14,7 @@ const SignInPage = () => {
           email: "",
           password: "",
         }}
-        onSubmit={(data) => Promise.resolve({ success: true, data })}
+        onSubmit={(data) => Promise.resolve({ success: true, data: null })}
       />
     </div>
   );

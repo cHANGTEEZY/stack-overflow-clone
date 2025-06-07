@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
+import { auth, signOut } from "@/auth";
 
-const LeftSideBar = () => {
-  const isLoggedIn = true;
+const LeftSideBar = async () => {
+  const session = await auth();
+  console.log("session is", session);
+  const userId = session?.user?.id;
 
   return (
     <section
@@ -16,10 +19,10 @@ const LeftSideBar = () => {
         shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]"
     >
       <div className="flex flex-1 flex-col gap-2">
-        <NavLinks />
+        <NavLinks userId={userId} />
       </div>
 
-      {!isLoggedIn ? (
+      {!userId ? (
         <div className="flex flex-col gap-3">
           <Button
             className="small-medium btn-secondary w-full min-h-[41px] rounded-lg 
@@ -59,10 +62,20 @@ const LeftSideBar = () => {
           </Button>
         </div>
       ) : (
-        <Button>
-          <LogOut className="max-lg:hidden flex" />
-          <span className="hidden sm:block cursor-pointer ">Logout</span>
-        </Button>
+        <>
+          <form
+            action={async () => {
+              "use server";
+
+              await signOut();
+            }}
+          >
+            <Button type="submit">
+              <LogOut className="max-lg:hidden flex" />
+              <span className="hidden sm:block cursor-pointer ">Logout</span>
+            </Button>
+          </form>
+        </>
       )}
     </section>
   );
