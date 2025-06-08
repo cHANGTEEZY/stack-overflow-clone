@@ -12,11 +12,7 @@ type ActionOptions<T> = {
   authorize?: boolean;
 };
 
-export async function action<T>({
-  params,
-  schema,
-  authorize,
-}: ActionOptions<T>) {
+async function action<T>({ params, schema, authorize }: ActionOptions<T>) {
   if (schema && params) {
     try {
       schema.parse(params);
@@ -45,3 +41,5 @@ export async function action<T>({
 
   return { params, session };
 }
+
+export default action;

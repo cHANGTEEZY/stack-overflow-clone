@@ -39,3 +39,8 @@ type ErrorResponse = ActionResponse<undefined> & { success: true };
 type APIErrorResponse = NextResponse<ErrorResponse>;
 
 type APIResponse<T = null> = NextResponse<SuccesResponse<T> | ErrorResponse>;
+
+interface RouteParams {
+  params: Promise<Record<string, string>>;
+  seacrchParms: Promise<Record<string, string>>;
+}

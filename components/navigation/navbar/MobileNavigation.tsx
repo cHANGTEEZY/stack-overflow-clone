@@ -71,7 +71,7 @@ const MobileNavigation = async () => {
                       await signOut();
                     }}
                   >
-                    <Button type="submit" className="cursor-pointer">
+                    <Button type="submit" className="cursor-pointer w-full">
                       Logout
                     </Button>
                   </form>

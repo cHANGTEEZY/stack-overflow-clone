@@ -2,7 +2,7 @@
 
 import { AskQuestionSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useRef } from "react";
+import React, { useRef, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -20,12 +20,21 @@ import { MDXEditorMethods } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
 import { z } from "zod";
 import TagCard from "../cards/TagCards";
+import { createQuestion } from "@/lib/actions/question.action";
+import { toast } from "sonner";
+import ROUTES from "@/constants/routes";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 
 const Editor = dynamic(() => import("@/components/editor"), {
   ssr: false,
 });
 
 const QuestionForm = () => {
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof AskQuestionSchema>>({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
@@ -79,7 +88,21 @@ const QuestionForm = () => {
   const handleCreateQuestion = async (
     data: z.infer<typeof AskQuestionSchema>
   ) => {
-    console.log(data);
+    startTransition(async () => {
+      const result = await createQuestion(data);
+
+      if (result.success) {
+        toast.success("Success", {
+          description: "Question Created Successfully",
+        });
+
+        if (result.data) router.push(ROUTES.QUESTION(result.data._id));
+      } else {
+        toast.error(`Error ${result.status}`, {
+          description: result.error?.message || "Something went wrong",
+        });
+      }
+    });
   };
 
   return (
@@ -185,9 +208,18 @@ const QuestionForm = () => {
 
         <div className="mt-16 flex justify-end">
           <Button
+            disabled={isPending}
             type="submit"
             className="primary-gradient !text-light-900 w-fit"
           >
+            {isPending ? (
+              <>
+                <ReloadIcon className="animate-spin mr-2 size-4" />
+                <span>Submitting</span>
+              </>
+            ) : (
+              <>Ask a Question</>
+            )}
             Ask A Question
           </Button>
         </div>

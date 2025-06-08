@@ -1,3 +1,4 @@
+import { createQuestion } from "@/lib/actions/question.action";
 interface SignInWithOAuthParams {
   provider: "github" | "google";
   providerAccountId: string;
@@ -14,4 +15,10 @@ interface AuthCredentials {
   username: string;
   email: string;
   password: string;
+}
+
+interface CreateQuestionParams {
+  title: string;
+  content: string;
+  tags: string[];
 }

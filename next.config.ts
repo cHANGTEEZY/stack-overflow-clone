@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "avatars.googleusercontent.com",
+        hostname: "lh3.googleusercontent.com",
         port: "",
       },
     ],
