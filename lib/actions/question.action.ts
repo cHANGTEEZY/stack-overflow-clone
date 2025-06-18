@@ -197,8 +197,6 @@ export async function editQuestion(
 export async function getQuestion(
   params: GetQuestionParams
 ): Promise<ActionResponse<IQuestionDoc>> {
-  console.log("getQuestion - Input params:", params);
-
   const validationResult = await action({
     params,
     schema: GetQuestionSchema,
@@ -290,7 +288,6 @@ export async function getQuestions(params: PaginatedSearchParams): Promise<
         { content: { $regex: query, $options: "i" } },
       ];
     }
-
     switch (filter) {
       case "newest":
         sortCriteria = { createdAt: -1 };

@@ -20,17 +20,21 @@ const NavLinks = ({
   return (
     <>
       {sidebarLinks.map((link) => {
-        const isActive: boolean =
-          (pathName.includes(link.route) && link.route.length > 1) ||
-          pathName === link.route;
+        const route =
+          link.route === "/profile" && userId
+            ? `/profile/${userId}`
+            : link.route;
 
-        if (link.route === "/profile") {
-          if (userId) link.route = `/profile/${userId}`;
-          else return null;
+        if (link.route === "/profile" && !userId) {
+          return null;
         }
+
+        const isActive: boolean =
+          (pathName.includes(route) && route.length > 1) || pathName === route;
+
         const LinkComponent = (
           <Link
-            href={link.route}
+            href={route}
             key={link.label}
             className={cn(
               isActive
@@ -64,7 +68,7 @@ const NavLinks = ({
             {LinkComponent}
           </SheetClose>
         ) : (
-          <React.Fragment key={link.route}>{LinkComponent}</React.Fragment>
+          <React.Fragment key={link.label}>{LinkComponent}</React.Fragment>
         );
       })}
     </>
